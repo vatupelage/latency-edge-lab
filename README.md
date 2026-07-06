@@ -44,3 +44,15 @@ pytest test_edgelab_*.py -q                        # 34 tests
    against logged bid/ask, shrinkage ON, segmented), and report with DSR/PBO.
 4. Every "no edge" verdict cites the **minimum detectable edge** at the achieved
    N, so it means "no edge larger than X¢", never "we didn't find one".
+
+---
+
+## Support
+
+If this work helped you, you can support me:
+
+- **USDT** (ERC-20): `0xfba2de3360ae0d98ec44216191d143bc28676af5`
+- **USDC** (ERC-20): `0xfba2de3360ae0d98ec44216191d143bc28676af5`
+- **BTC**: `14EVe4ejvXrSS6s34AUBP9TMoSsuzShJ8o`
+
+Have a vibe-coding project you'd like to collaborate on? Get in touch: **rawanaholdingslk@gmail.com**
