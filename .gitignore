@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.claude/
+# captures / run outputs (large; live in market-data-captures)
+latency_run_*/
+latency_run_*.log
+*.parquet

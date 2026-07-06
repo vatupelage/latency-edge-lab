@@ -1,0 +1,45 @@
+# edgelab logger + analysis config (single source of truth).
+logger:
+  out_dir: edgelab_data          # parquet root (events/ + windows.jsonl)
+  horizons:                       # which BTC Up/Down horizons to capture
+    "5m": 300
+    "15m": 900
+  resync_sec: 0                   # 0 = WS-only (no REST book resync); >0 = poll period
+  resolution_poll_sec: 20         # after close, poll Gamma for outcome
+  resolution_wait_sec: 240        # give up labelling outcome after this (rows still kept)
+
+fairvalue:                        # Edge A (glance-only, CEX PROXY — presumed artifact)
+  nu: 4                           # Student-t degrees of freedom for the digital
+  sigma_estimator: rolling        # rolling | har
+  rv_window_sec: 60
+
+costs:
+  taker_fee: 0.0                  # these BTC Up/Down markets: no per-trade fee
+  gas_usd: 0.0                    # Polygon gas (configurable)
+
+backtest:
+  shrinkage: true                 # blend fair value toward market mid (default ON)
+  cost_threshold_cents: [0.5, 1.0, 1.5, 2.0, 3.0]   # swept -> DSR/PBO applied
+  # OFI-decay buckets, extended down toward RTT (~3ms mean inter-event, so the
+  # 5-25ms buckets effectively measure the next-tick move = the optimistic ceiling).
+  decay_lags_ms: [5, 10, 25, 50, 100, 250, 500, 1000, 2000]
+  rtt_ms: 1.0                     # our acting latency (co-located ~0.9ms); decay must survive this
+  # PRE-REGISTERED move target (fixed before seeing data — see REPORT.md).
+  # 'mid' is primary. 'microprice' is a declared SECOND trial: if both are
+  # reported, PBO must count them as 2 trials, not 1.
+  move_target: mid
+  move_target_secondary: microprice
+
+harness:
+  region_id: eu-west-1          # set per box: ap-northeast-1 / us-east-1 elsewhere
+  symbols: [BTC]                # symbol-agnostic code; BTC-only for Spec 1
+  horizons: {5m: 300, 15m: 900}
+  out_dir: /tmp/latency_harness_data   # override on server via EDGELAB_OUT=/mnt/data/...
+  clob_url: "https://clob.polymarket.com"   # BINDING leg: order matching engine (GET /time lower bound)
+  rpc_url: "https://polygon-bor-rpc.publicnode.com"   # SECONDARY: on-chain settlement leg only (polygon-rpc.com now 401s)
+  probe_period_s: 2.0
+  tls_hosts:
+    - ["polygon-bor-rpc.publicnode.com", 443]
+    - ["stream.binance.com", 9443]
+    - ["ws-feed.exchange.coinbase.com", 443]
+    - ["ws-subscriptions-clob.polymarket.com", 443]

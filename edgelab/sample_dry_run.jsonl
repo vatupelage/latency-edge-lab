@@ -1,0 +1,6 @@
+{"token_index": {"TKN_UP": ["BTC", "btc-updown-5m-100"], "TKN_DN": ["BTC", "btc-updown-5m-100"]}}
+{"family": "binance", "raw": {"stream": "btcusdt@bookTicker", "data": {"u": 10, "s": "BTCUSDT", "b": "64059.99", "B": "0.98", "a": "64060.00", "A": "3.26"}}}
+{"family": "binance", "raw": {"stream": "btcusdt@trade", "data": {"e": "trade", "s": "BTCUSDT", "t": 1, "p": "64060.0", "q": "0.0003", "m": false}}}
+{"family": "coinbase", "raw": {"type": "match", "price": "63983.99", "size": "0.0001", "side": "buy", "sequence": 5, "product_id": "BTC-USD"}}
+{"family": "pm_oracle", "raw": {"topic": "crypto_prices", "type": "update", "payload": {"value": 64000.12, "symbol": "btcusdt"}}}
+{"family": "pm_clob", "raw": {"event_type": "book", "asset_id": "TKN_UP", "bids": [{"price": "0.48", "size": "100"}], "asks": [{"price": "0.52", "size": "200"}]}}
